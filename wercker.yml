@@ -29,17 +29,23 @@ build:
     # Gets the dependencies
     - script:
         name: go get
-        code: |
-          go get
+        code: go get
 
     # Build the project
     - script:
         name: go build
-        code: |
-          go build ./...
+        code: CGO_ENABLED=0 go build -a -ldflags '-s' -installsuffix cgo -o app .
 
-    # Test the project
     - script:
-        name: go test
-        code: |
-          go test ./...
+        name: copy binary
+        code: cp app "$WERCKER_OUTPUT_DIR"
+
+registry-push:
+  box: google/golang
+  steps:
+  - internal/docker-scratch-push:
+      username: $USERNAME
+      password: $PASSWORD
+      tag: $WERCKER_GIT_COMMIT
+      repository: gonfva/golang-wiki
+      registry: https://registry.hub.docker.com/v2
