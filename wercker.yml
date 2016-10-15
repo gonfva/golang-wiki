@@ -37,8 +37,12 @@ build:
         code: CGO_ENABLED=0 go build -a -ldflags '-s' -installsuffix cgo -o app .
 
     - script:
+        name: create wiki-controller
+        code: sed -i "s/WERCKER_GIT_COMMIT/$WERCKER_GIT_COMMIT/g" wiki-controller.json
+
+    - script:
         name: copy binary
-        code: cp app "$WERCKER_OUTPUT_DIR"
+        code: cp app wiki-service.json wiki-controller.json "$WERCKER_OUTPUT_DIR"
 
 registry-push:
   box: google/golang
@@ -48,4 +52,15 @@ registry-push:
       password: $PASSWORD
       tag: $WERCKER_GIT_COMMIT
       repository: gonfva/golang-wiki
+      ports: 8080
       registry: https://registry.hub.docker.com/v2
+
+rolling-update:
+  steps:
+  - kubectl:
+      server: $KUBERNETES_MASTER
+      username: $KUBERNETES_USERNAME
+      password: $KUBERNETES_PASSWORD
+      insecure-skip-tls-verify: true
+      command: rolling-update wikis
+      image: registry.hub.docker.com/gonfva/golang-wiki:$WERCKER_GIT_COMMIT
