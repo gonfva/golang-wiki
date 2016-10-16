@@ -8,7 +8,7 @@
       }
    },
    "spec":{
-      "createExternalLoadBalancer": true,
+      "type": "NodePort",
       "ports": [
          {
            "port": 80,
