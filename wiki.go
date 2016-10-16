@@ -70,7 +70,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
   }
 }
 
-var validPath = regexp.MustCompile("^/(edit|save|view|index)/([a-zA-Z0-9]+)$")
+var validPath = regexp.MustCompile("^/(edit|save|view|index)/([a-zA-Z0-9_]+)$")
 
 func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
   return func(w http.ResponseWriter, r *http.Request) {
@@ -103,7 +103,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
   if (len(files)==0) {
     fmt.Fprintf(w, "No pages")
   }
-  fmt.Fprintf(w, "<br/><a href='#' onclick='var page=prompt(\"Please enter new name\");location=\"/edit/\"+page;'>Add a new page</a>")
+  fmt.Fprintf(w, "<br/><a href='#' onclick='var page=prompt(\"Please enter new name\");location=\"/edit/\"+page.replace(/ /g,\"_\");'>Add a new page</a>")
 }
 
 func main() {
