@@ -2,7 +2,7 @@
    "kind": "Service",
    "apiVersion": "v1",
    "metadata": {
-      "name": "wiki-servuce",
+      "name": "wiki-service",
       "labels": {
          "name": "wiki-service"
       }
@@ -17,7 +17,7 @@
          }
       ],
       "selector":{
-         "name":"wikis"
+         "name":"wiki"
       }
    }
 }
