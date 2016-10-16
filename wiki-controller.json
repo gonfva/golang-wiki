@@ -2,20 +2,20 @@
   "kind": "ReplicationController",
   "apiVersion": "v1",
   "metadata": {
-    "name": "wikis",
+    "name": "wiki-rc",
     "labels": {
-      "name": "wikis"
+      "name": "wiki-rc"
     }
   },
   "spec": {
-    "replicas": 3,
+    "replicas": 2,
     "selector": {
-      "name": "wikis"
+      "name": "wiki"
     },
     "template": {
       "metadata": {
         "labels": {
-          "name": "wikis",
+          "name": "wiki",
           "deployment": "WERCKER_GIT_COMMIT"
         }
       },
@@ -24,7 +24,7 @@
           {
             "imagePullPolicy": "Always",
             "image": "registry.hub.docker.com/gonfva/golang-wiki:WERCKER_GIT_COMMIT",
-            "name": "wikis",
+            "name": "wiki",
             "ports": [
               {
                 "name": "http-server",

@@ -2,17 +2,17 @@
    "kind": "Service",
    "apiVersion": "v1",
    "metadata": {
-      "name": "wiki",
+      "name": "wiki-servuce",
       "labels": {
-         "name": "wikis"
+         "name": "wiki-service"
       }
    },
    "spec":{
       "createExternalLoadBalancer": true,
       "ports": [
          {
-           "port": 8080,
-           "targetPort": "http-server",
+           "port": 80,
+           "targetPort": 8080,
            "protocol": "TCP"
          }
       ],

@@ -75,5 +75,5 @@ rolling-update:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
-      command: rolling-update wikis --validate=false --image-pull-policy Always
+      command: rolling-update wiki-rc --validate=false --image-pull-policy Always
       image: registry.hub.docker.com/gonfva/golang-wiki:$WERCKER_GIT_COMMIT
