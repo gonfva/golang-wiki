@@ -61,13 +61,13 @@ initializing:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
-      command: apply -f wiki-service.json
+      command: apply -f wiki-service.json --validate=false
 
   - kubectl:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
-      command: apply -f wiki-controller.json
+      command: apply -f wiki-controller.json --validate=false
 
 rolling-update:
   steps:
@@ -75,5 +75,5 @@ rolling-update:
       server: $KUBERNETES_MASTER
       token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
-      command: rolling-update wikis
+      command: rolling-update wikis --validate=false --image-pull-policy Always
       image: registry.hub.docker.com/gonfva/golang-wiki:$WERCKER_GIT_COMMIT
