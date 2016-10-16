@@ -59,8 +59,7 @@ rolling-update:
   steps:
   - kubectl:
       server: $KUBERNETES_MASTER
-      username: $KUBERNETES_USERNAME
-      password: $KUBERNETES_PASSWORD
+      token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
       command: rolling-update wikis
       image: registry.hub.docker.com/gonfva/golang-wiki:$WERCKER_GIT_COMMIT
