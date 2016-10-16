@@ -42,7 +42,7 @@ build:
 
     - script:
         name: copy binary
-        code: cp app wiki-service.json wiki-controller.json "$WERCKER_OUTPUT_DIR"
+        code: cp app edit.html view.html wiki-service.json wiki-controller.json "$WERCKER_OUTPUT_DIR"
 
 registry-push:
   box: google/golang
@@ -54,6 +54,7 @@ registry-push:
       repository: gonfva/golang-wiki
       ports: 8080
       registry: https://registry.hub.docker.com/v2
+      cmd: ./app
 
 initializing:
   steps:
