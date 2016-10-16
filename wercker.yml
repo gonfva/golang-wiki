@@ -55,6 +55,20 @@ registry-push:
       ports: 8080
       registry: https://registry.hub.docker.com/v2
 
+initializing:
+  steps:
+  - kubectl:
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: apply -f wiki-service.json
+
+  - kubectl:
+      server: $KUBERNETES_MASTER
+      token: $KUBERNETES_TOKEN
+      insecure-skip-tls-verify: true
+      command: apply -f wiki-controller.json
+
 rolling-update:
   steps:
   - kubectl:
