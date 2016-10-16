@@ -56,7 +56,7 @@ registry-push:
       registry: https://registry.hub.docker.com/v2
       cmd: ./app
 
-initializing:
+deploy:
   steps:
   - kubectl:
       server: $KUBERNETES_MASTER
@@ -69,12 +69,3 @@ initializing:
       token: $KUBERNETES_TOKEN
       insecure-skip-tls-verify: true
       command: apply -f wiki-controller.json --validate=false
-
-rolling-update:
-  steps:
-  - kubectl:
-      server: $KUBERNETES_MASTER
-      token: $KUBERNETES_TOKEN
-      insecure-skip-tls-verify: true
-      command: rolling-update wiki-rc --validate=false --image-pull-policy Always
-      image: registry.hub.docker.com/gonfva/golang-wiki:$WERCKER_GIT_COMMIT
